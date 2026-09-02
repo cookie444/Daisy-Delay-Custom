@@ -5,9 +5,9 @@ ASCII reference for hand-wiring/perf-board layout. Net names map 1:1 to
 
 ```
                  ┌──────────────────────────────┐
-  9V DC jack ────│ 1N5819 rev-prot ── 7805 ─VIN │  Drive jack +139
+  9V DC ─────────│ 1N5819 (series) ──────── VIN │  barrel jack, 9V
                  │                              │
-                 │            DAISY SEED V2      │ AGND joined @ LDO
+                  │            DAISY SEED V2      │ AGND tied to DGND
                  │        (header pins used)     │
                  │                               │
  TRS IN L/R ─────│ AUDIO_IN_L/R                  │
@@ -37,17 +37,22 @@ ASCII reference for hand-wiring/perf-board layout. Net names map 1:1 to
 ## Power stage (detail)
 
 ```
-                ╔════════════╗  ╔═════╗   ╔═════════╗
- 9V jack –━━ ┈─ │ J1 │ 2.1mm ── 1N5819  ──── 7805    ├── +5V ── VIN(39)
-                ║    ║          must go to GND with 100uF/100n both sides
-                ╚════╝ −├ GND ●── AGND/DGND ●── Jack tip return (ring)
+ 9V barrel jack (center-negative)
+   tip (+9V) ──── 1N5819 (series, reverse prot.) ──┬──── VIN (39)
+                                                   │
+                                                   ├── 100 uF ──┐
+                                                   ├── 100 nF ──┤
+   sleeve (GND) ───────────────────────────────────┴────────────┴── GND (40)
+
+ Optional: SMAJ15A TVS across VIN/GND (clamps 18 V pedalboard supplies).
+ AGND must be tied to DGND.  No 5 V regulator — VIN accepts 5-17 V.
 ```
 
 ## Pot section (6)
 
 ```
 Pot_n (B linear, 10k):
-  OUT-L = GND     OUT-R = 3V3     WIPER → Seed GetPin(idx)
+  OUT-L = AGND    OUT-R = +3V3A   WIPER → Seed GetPin(idx)
   (optional 100 nF wiper→AGND)
 ```
 
@@ -74,11 +79,13 @@ AGND common star at the Seed; chassis to AGND at the DC jack.
 ## What is NOT on the schematic
 
 - Codec (on Seed): `AK4556` handles filtering; no external R/C needed.
-- USB-C: kept free for DF flashing, isolated from the 5V rail by the Seed.
+- USB-C: kept free for DFU flashing. Per the datasheet it is safe to power
+  the Seed from VIN and USB at the same time.
 ```
 
 Netlist:
-1. Power: J1_9V → D1(1N5819)A → U1(7805)in → +5V to VIN. J1 GND → GND star.
+1. Power: J1_9V tip → D1(1N5819) series → VIN(39) [+ 100uF/100nF to GND,
+   optional SMAJ15A clamp]. J1 sleeve → GND(40). Tie AGND to DGND.
 2. Audio: TRS_IN.L→AUDIO_IN_L; TRS_IN.R→AUDIO_IN_R;
    AUDIO_OUT_L→TRS_OUT.L; AUDIO_OUT_R→TRS_OUT.R.
 3. Pots K1..K6 wipers → PB0, PC1, PA3, PA1, PC5, PA4 (in that order).

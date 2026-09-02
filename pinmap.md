@@ -18,8 +18,8 @@ verified against `lib/libDaisy/src/daisy_seed.cpp`).
 Note: PA6/ch 6 is **excluded from libDaisy's ADC channel table**, so it is
 avoided on purpose.
 
-Each pot: one outer lug to 3V3, other outer lug to GND, wiper straight into
-the pin. Wire as 100 nF decoupling from wiper to AGND recommended.
+Each pot: one outer lug to +3V3A, other outer lug to AGND, wiper straight
+into the pin. Add 100 nF decoupling from wiper to AGND (recommended).
 
 ## Toggle switches (3)
 
@@ -58,10 +58,20 @@ Wire through series resistors (1 kΩ) to LED anode, cathode to GND.
 
 ## Power
 
-- 9 V center-negative barrel → reverse-protection Schottky (1N5819) →
-  7805 LDO → +5 V rail → Seed **VIN** (pin 39). AGND/DGND joined at one
-  point near the regulator.
-- Optional protection: 9V1 Zener/PTC fuse ahead of the Schottky.
+**No 5 V regulator is required.** VIN accepts **+5 V to +17 V** (older
+datasheets: +4 V), so a standard 9 V pedal supply feeds the Seed directly —
+the Seed's own onboard regulators derive 3.3 V. Feeding it through a 7805
+would only waste ~0.6 W as heat.
+
+- 9 V center-negative barrel → **series** Schottky (1N5819, reverse
+  protection) → **VIN (pin 39)**; sleeve → **GND (pin 40)**.
+- **AGND must be tied to DGND** — required by the datasheet.
+- Bulk 100 µF electrolytic + 100 nF ceramic across VIN/GND.
+- Recommended: 15 V TVS (SMAJ15A) or Zener clamp across the input. Some
+  pedalboard supplies output 18 V, which exceeds the 17 V maximum.
+- Add a regulator only if your supply can exceed 17 V.
+
+Pots and LEDs reference **+3V3 Analog**, never 9 V — ADC/GPIO is 0–3.3 V.
 
 ## Audio
 

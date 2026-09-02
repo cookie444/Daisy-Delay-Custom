@@ -1,4 +1,8 @@
-# BOM — Daisy Pedal Pod Delay (Seed v2 console)
+# BOM — Daisy Delay Custom (Seed v2 console)
+
+**Power note:** VIN accepts +5 V to +17 V, so the 9 V pedal supply feeds the
+Seed **directly** — no 5 V regulator is needed (one was removed from this
+BOM). Add a regulator only if your supply can exceed 17 V.
 
 Quantities per one pedal. Example part numbers are Mouser-friendly text.
 
@@ -7,10 +11,10 @@ Quantities per one pedal. Example part numbers are Mouser-friendly text.
 | # | Qty | Part | Spec / Value | Example part |
 |---|----:|------|--------------|--------------|
 | B1 | 1 | Daisy Seed v2 | STM32 H7 module | Electrosmith Daisy Seed |
-| B2 | 1 | 5 V regulator | LDO 7805 (TO-92 or TO-220 ≥1A headroom) | LM7805CT |
-| B3 | 1 | Reverse-prot. diode | Schottky 1N5819 (low VF) | 1N5819 |
-| B4 | 2 | Electrolytic cap | 100 µF 25 V (input/output of LDO) | Nichicon UPW1E101MDD |
-| B5 | 2 | Ceramic cap | 100 nF (LDO decoupling) | Kemet C315C104K5R5TA |
+| B3 | 1 | Reverse-prot. diode | Schottky 1N5819 (low VF), in series | 1N5819 |
+| B4 | 1 | Electrolytic cap | 100 µF 25 V (bulk across VIN/GND) | Nichicon UPW1E101MDD |
+| B5 | 1 | Ceramic cap | 100 nF (VIN decoupling) | Kemet C315C104K5R5TA |
+| B12 | 1 | TVS / Zener clamp | 15 V standoff (vs 18 V supplies) | SMAJ15A |
 | B6 | 2 | LED | 3 mm, red & green (or RGB if tempo color) | |
 | B7 | 2 | Current resistor | 1 kΩ 1/4 W for LEDs | Yageo CF1/4W102JTB |
 | B8 | 1 | 2.1 mm barrel jack | Center neg, DC-002 | CUI PJ-036AH |
@@ -40,9 +44,10 @@ Quantities per one pedal. Example part numbers are Mouser-friendly text.
 
 ## Wiring note
 
-Wire the 6 pots through a ribbon/Belden bundle; star AGND/DGND together at
-the LDO to avoid hum. If you swap the 7805 for a buck regulator, keep the
-diode + caps and confirm VIN accepts the rails.
+Wire the 6 pots through a ribbon/Belden bundle. **AGND must be tied to
+DGND** (datasheet requirement) — do it once, close to the Seed, to avoid
+hum. No 5 V regulator: 9 V goes straight to VIN. Pots/LEDs reference the
+Seed's **+3V3 Analog** output, never 9 V.
 
 ### Source list (typical)
 
@@ -51,4 +56,4 @@ diode + caps and confirm VIN accepts the rails.
 - Footswitch: LoveMySwitches / C&K
 - TRS jacks: Cliff STY series
 - Enclosure: Hammond 1590BB
-- Regulator: Any 5 V LDO ≥ 200 mA (7805 used for simplicity)
+- TVS / protection: Mouser (Littelfuse SMAJ15A)
