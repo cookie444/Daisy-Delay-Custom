@@ -1,0 +1,22 @@
+Ref,Qty,Part,Spec,Example
+B1,1,Daisy Seed v2,STM32 H7 module,Electrosmith Daisy Seed
+B2,1,5V regulator,LDO 7805,LM7805CT
+B3,1,Reverse-prot. diode,Schottky 1N5819,1N5819
+B4,2,Electrolytic cap,100 uF 25 V,Nichicon UPW1E101MDD
+B5,2,Ceramic cap,100 nF,Kemet C315C104K5R5TA
+B6,2,LED,3mm red/green,
+B7,2,Current resistor,1 kOhm 1/4W,Yageo CF1/4W102JTB
+B8,1,2.1 mm barrel jack,center-negative,CUI PJ-036AH
+B9,2,TRS jack 6.35 mm,stereo,Cliff STY-09012
+B10,1,Terminal block,optional,
+B11,misc.,Wire/solder/perf,,
+C1,6,Potentiometer,10k B linear 9mm,Alpha RK090
+C2,3,Mini toggle,SPST/SPDT solder-lug,E-Switch 100SP1T2B4M2QE
+C3,1,DIP switch,4-position 2.54mm,CTS 208-4
+C4,2,Footswitch,soft-touch momentary,C&K AP/Davina CLK
+C5,6,Knobs,Top-hat/aluminum,Davies 6.35mm
+C6,1,DIP pad,leave 2 open if 6-pos,
+S1,1,Enclosure,Hammond 1590BB,
+S2,4,Feet/screws,rubber,
+S3,1,PCB/perf-board,,
+S4,1,Stickers/Nameplate,optional,

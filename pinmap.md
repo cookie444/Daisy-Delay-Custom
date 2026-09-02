@@ -1,0 +1,70 @@
+# Daisy Seed v2 — Hardware Pinmap
+
+Boutique delay pedal (Chase-Bliss-style compact box). All GPIO references
+are libDaisy `GetPin(index)` indices on the Daisy Seed v2 (REV2 mapping,
+verified against `lib/libDaisy/src/daisy_seed.cpp`).
+
+## Pots (ADC inputs)
+
+| Knob | Function | Seed index | STM32 pin | ADC ch |
+|------|----------|-----------|-----------|--------|
+| K1   | TIME     | 16 | PB0 | IN14 |
+| K2   | REPEAT (feedback) | 17 | PC1 | IN9 |
+| K3   | MIX      | 18 | PA3 | IN3 |
+| K4   | TONE (repeats brightness) | 19 | PA1 | IN17 |
+| K5   | MOD DEPTH | 24 | PC5 | IN13 |
+| K6   | MOD RATE  | 25 | PA4 | IN4 |
+
+Note: PA6/ch 6 is **excluded from libDaisy's ADC channel table**, so it is
+avoided on purpose.
+
+Each pot: one outer lug to 3V3, other outer lug to GND, wiper straight into
+the pin. Wire as 100 nF decoupling from wiper to AGND recommended.
+
+## Toggle switches (3)
+
+| Toggle | Function | Seed index | STM32 pin |
+|--------|----------|-----------|-----------|
+| T1 | Echo flavor: DIGITAL / TAPE | 2 | PC11 |
+| T2 | Ping-pong: off/on | 3 | PC10 |
+| T3 | Modulation: off/on | 4 | PC9 |
+
+SPST/SPDT minis wired pin→GND; firmware uses internal pull-ups.
+
+## DIP switch (4-position, top-mount)
+
+| DIP | Function | Seed index | STM32 pin |
+|-----|----------|-----------|-----------|
+| DIP1 | Tap subdiv: dotted | 5 | PC8 |
+| DIP2 | Tap subdiv: triplet | 6 | PD7 |
+| DIP3 | Tap subdiv: half-time (x2) | 7 | PC12 |
+| DIP4 | Freeze / hold loop | 8 | PG10 |
+
+## Footswitches (soft-touch momentary, 2)
+
+| Foot | Function | Seed index | STM32 pin |
+|------|----------|-----------|-----------|
+| FS1  | Bypass | 9 | PG11 |
+| FS2  | Tap tempo | 12 | PB8 |
+
+## LEDs (2)
+
+| LED | Function | Seed index | STM32 pin |
+|-----|----------|-----------|-----------|
+| LED1 | Effect on (green) | 14 | PB6 |
+| LED2 | Tempo blink, red/blue by mod (PWM-capable pin) | 15 | PB7 |
+
+Wire through series resistors (1 kΩ) to LED anode, cathode to GND.
+
+## Power
+
+- 9 V center-negative barrel → reverse-protection Schottky (1N5819) →
+  7805 LDO → +5 V rail → Seed **VIN** (pin 39). AGND/DGND joined at one
+  point near the regulator.
+- Optional protection: 9V1 Zener/PTC fuse ahead of the Schottky.
+
+## Audio
+
+TRS in/out wired directly to the Seed's codec path nets
+(`AUDIO_IN_L/R`, `AUDIO_OUT_L/R`); AGND/DGND join at the Seed.
+One TRS jack carries stereo, so use one matching jack per direction.
