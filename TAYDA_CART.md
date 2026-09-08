@@ -8,27 +8,34 @@ Tayda's **Quick Order** page loads the entire cart from a CSV file:
 2. Under *Add from File*, upload **`TAYDA_QUICKORDER.csv`** (in this repo)
 3. Review the list → add all to cart
 
-Or skip the file — paste the two-column list below (SKU, then quantity) into
-the *Enter multiple SKU(s)* box:
+Or skip the file — paste the list below into the *Enter multiple SKU(s)* box.
+
+**Important:** the separator must be a **comma**, not a space. `A-1847,6` works;
+`A-1847 6` fails with "Product doesn't exist" because Tayda reads the whole
+line as one SKU.
 
 ```
-A-1847 6
-A-4559 6
-A-6755 3
-A-6506 1
-A-1091 2
-A-5238 2
-A-5245 1
-A-484 1
-A-4541 1
-A-4008 10
-A-1076 2
-A-2200 10
-A-5158 1
-A-5465 1
-A-8519 3
-A-8520 3
+A-1847,6
+A-4559,6
+A-6755,3
+A-6506,1
+A-1091,2
+A-5238,2
+A-5245,1
+A-484,1
+A-4541,1
+A-4008,10
+A-1076,2
+A-2200,10
+A-5158,1
+A-5465,1
+A-8519,3
+A-8520,3
 ```
+
+If a few still come back as "doesn't exist", those particular A-numbers aren't
+in the Quick Order index — search for them by name on the site and add them
+manually. The per-part links below are the fallback.
 
 Note: Tayda carts live in your account, so there is no shareable cart link you
 can hand to someone else. (You *can* share one after logging in via
