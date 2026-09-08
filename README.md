@@ -40,6 +40,7 @@ Analog-Signal delay in the style of a BBD tape echo: a lowpass filter sits in th
 | `BOM.md` / `BOM.csv` | Parts list with example part numbers |
 | `BUILD_GUIDE.md` | 10-stage build order, every stage independently testable |
 | `TAYDA_CART.md` | Clickable Tayda Electronics parts list (everything except the Seed) |
+| `BREADBOARD_CART.md` | Solder-free breadboard prototyping variant of the cart |
 | `README.md` | This overview |
 
 ## Key design decisions
