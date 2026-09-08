@@ -1,7 +1,40 @@
 # Tayda Electronics — Build Cart (Daisy Delay Custom)
 
-Tayda has no shareable cart URL, so this is a clickable parts list. Open each
-link, set the quantity, and add to cart.
+## Fastest way to order: one upload
+
+Tayda's **Quick Order** page loads the entire cart from a CSV file:
+
+1. Go to **https://www.taydaelectronics.com/quick-order/**
+2. Under *Add from File*, upload **`TAYDA_QUICKORDER.csv`** (in this repo)
+3. Review the list → add all to cart
+
+Or skip the file — paste the two-column list below (SKU, then quantity) into
+the *Enter multiple SKU(s)* box:
+
+```
+A-1847 6
+A-4559 6
+A-6755 3
+A-6506 1
+A-1091 2
+A-5238 2
+A-5245 1
+A-484 1
+A-4541 1
+A-4008 10
+A-1076 2
+A-2200 10
+A-5158 1
+A-5465 1
+A-8519 3
+A-8520 3
+```
+
+Note: Tayda carts live in your account, so there is no shareable cart link you
+can hand to someone else. (You *can* share one after logging in via
+Cart → Save Cart → Share.)
+
+The per-part links below are for reference and substitutions.
 
 Quantities are for **one pedal**. Prices are what Tayda listed when this was
 written — they move, so check at checkout.
